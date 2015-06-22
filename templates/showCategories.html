@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="container fluid">
+	<div class="row">
+
+		{% include "flash.html" %}
+
+		<div class="col-md-9 col-md-offset-1"  style="border-bottom: 0px solid #ccc">
+			<h1>Categories</h1>
+				<p><h4>
+				<a href="/itemCatalog"><small> go back </small></a>
+				{% if "username" in session %}
+						<a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary"> New Category </span></strong></small></a>
+				{% endif %}
+				</h4></p>
+
+				<hr>
+
+				{% for category in categories %}
+
+					<a href = "{{url_for('showCategoryItems', category_id = category.id)}}">
+						<h3>{{category.vehicle_type}}</h3></a>
+					<h3><small>{{category.description}}</small></h3>
+					<h4><small>Created by <a href="mailto:{{category.creator.email}}"> {{category.creator.name}}</a></small></h4>
+					
+
+					{% if "username" in session %}
+						{% if session.user_id == category.user_id %}
+							<p><h4><a href = "{{url_for('editCategory', category_id = category.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
+							{% if category.empty %}
+								<a href = "{{url_for('deleteCategory', category_id = category.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
+							{% else %}
+								<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small></a></p></h4>
+							{% endif %}
+
+						{% else %}
+							<p><h4>
+								<small><strong><span class="label label-default" style="color: #ccc;">Edit</span></strong></small>
+								<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small>
+							</h4></p>
+						{% endif %}
+						{% endif %}
+
+				<hr>
+				{% endfor %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-md-offset-0"  style="border-bottom: 0px solid #ccc">
+			<hr style="border: 0px">
+		</div>
+	</div>
+</div>
+
+{% include "footer.html" %} 
+{% endblock %}

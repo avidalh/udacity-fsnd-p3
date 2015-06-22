@@ -1,0 +1,9 @@
+{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="col-md-7 col-md-offset-2"  style="border-radius: 8px; background-color: #5bc0de">
+	        		{% for message in messages %}
+	            		<h4 align="center" style="color: #eeeeee"> {{ message }} </h4>
+	        		{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}

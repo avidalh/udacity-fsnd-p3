@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="container fluid">
+    <div class="row">
+
+        {% include "flash.html" %}
+        
+        <div class="col-md-7 col-md-offset-2"  style="border-bottom: 0px solid #ccc">
+
+            <h1>Item Deletion page...</h1>
+
+                <h3>{{item.make}}</h3>
+                <h4>{{item.model}}</h4>
+                <h5>{{item.description}}</h5>
+
+
+                <form action="#" method = 'post'>
+                    <button type="submit" class="btn btn-danger delete" id="submit" type="submit" value="delete" name="btn" >
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete </button>
+                        
+                    <a href = '{{url_for('showCategoryItems', category_id = category_id)}}'>
+                        <button class="btn btn-default delete" value="cancel" name="btn" >
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button></a>
+
+                </form>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}

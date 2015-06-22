@@ -1,0 +1,19 @@
+{% if debug %}
+	<div class="row">
+			<div class="col-md-10 col-md-offset-1"  style="vertical-align: bottom;">
+				
+				<p><h4><small><strong> DEBUG INFO: </strong></small></h4></p>
+				<p><h5><small>debug: {{debug}}<br> username: {{session.username}}<br> user_id: {{session.user_id}} </small></h5></p>
+				<p><h5><small>session: {{session}} </small></h5></p>
+				
+			</div>
+	</div>
+
+{% endif %}
+
+<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
+  <div class="container">
+    <p class="text-muted credit"><strong>Item Catalog Project </strong><a href="http://www.udacity.com/nanodegree">Full Stack NanoDegree</a> at <a href="http://www.udacity.com">Udacity</a>.</p>
+  </div>
+</div>
+</body>
