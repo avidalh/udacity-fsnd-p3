@@ -5,7 +5,7 @@ DEBUG = True
 
 app = Flask(__name__)
 
-import populate
+# import populate
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -16,13 +16,14 @@ import random, string
 
 
 #IMPORTS FOR THIS STEP
-#from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import json 
 from flask import make_response
 import requests
+
+import time
 
 
 #Log to strderr
@@ -48,6 +49,7 @@ session = DBSession()
 @app.route('/')
 @app.route('/itemCatalog/')
 def showItems():
+
 	latestCategories = session.query(Categories).order_by(Categories.id.\
 		desc()).limit(5).all()
 	latestItems = session.query(Items).order_by(Items.id.desc()).limit(7).\
@@ -80,7 +82,7 @@ def showCategories():
 def newCategory():
 
 	if 'username' not in login_session:
-		return redirect('/login')
+		return redirect('/itemCatalog/login')
 
 	if request.method == 'POST':
 		if request.form['btn'] == 'save':
@@ -465,6 +467,9 @@ def gconnect():
   output +=' " style = "width: 150px; height: 150px; border-radius: 150px;\
       -webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
   flash("you are now logged in as %s"%login_session['username'])
+
+  login_session['timeStamp'] = time.time()
+  
   return output
 
 #Revoke current user's token and reset their login_session.
@@ -536,6 +541,7 @@ def fbconnect():
   login_session['email'] = data["email"]
   login_session['facebook_id'] = data["id"]
   
+  
 
   #Get user picture
   url = 'https://graph.facebook.com/v2.2/me/picture?%s&redirect=0&height=200&width=200' % token
@@ -562,6 +568,7 @@ def fbconnect():
       -webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
   flash ("Now logged in as %s" % login_session['username'])
+  login_session['timeStamp'] = time.time()
   return output
 
 
@@ -575,13 +582,13 @@ def fbdisconnect():
 
 
 def getUserID(email):
-	print email
+	# print email
 	try:
 		user = session.query(Users).filter_by(email=email).one()
-		print user.id
+		# print user.id
 		return user.id
 	except:
-		print "None"
+		# print "None"
 		return None
 
 
@@ -594,11 +601,11 @@ def createUser(login_session):
 	session.add(newUser)
 	session.commit()
 	user = session.query(Users).filter_by(email=login_session['email']).one()
-	print 'user_id: ', user_id
+	print 'user_id: ', user.id
 	return user.id
 
 @app.route('/itemCatalog/disconnect')
-def disconnect():
+def disconnect(byTimedOut=False):
   if 'provider' in login_session:
     if login_session['provider'] == 'google':
       gdisconnect()
@@ -613,7 +620,11 @@ def disconnect():
     del login_session['picture']
     del login_session['user_id']
     del login_session['provider']
-    flash("You have successfully been logged out.")
+
+    del login_session['timeStamp']
+
+    if not byTimedOut:
+    	flash("You have successfully been logged out.")
     return redirect(url_for('showItems'))
   else:
     flash("You were not logged in")
@@ -629,6 +640,17 @@ def inject_user():
 	debug = True
 	return dict(debug=debug)
 
+@app.before_request
+def make_session_permanent():
+	# auto log off code
+	if 'timeStamp' in login_session:
+		if time.time() - login_session['timeStamp'] > 10:
+			disconnect(byTimedOut=True)
+			flash("Your session has expired!")
+			return redirect(url_for('showItems'))
+		# refresh timer
+		login_session['timeStamp'] = time.time()
+    
 
 if __name__ == '__main__':
 	app.secret_key = 'super_secret_key'

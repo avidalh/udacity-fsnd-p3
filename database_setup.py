@@ -75,11 +75,12 @@ class Items(Base):
        }
 
 
-engine = create_engine('postgresql:///catalog')
+if __name__ == '__main__':
+    engine = create_engine('postgresql:///catalog')
 
-# drops all table's rows
-Base.metadata.drop_all(engine)
+    # drops all table's rows
+    Base.metadata.drop_all(engine)
 
-# creates all tables
-Base.metadata.create_all(engine)
+    # creates all tables
+    Base.metadata.create_all(engine)
 
