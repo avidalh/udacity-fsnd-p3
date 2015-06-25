@@ -12,15 +12,21 @@
 				<p><h4>
 				<a href="/itemCatalog"><small> go back </small></a>
 				{% if "username" in session %}
-						<a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary"> New Category </span></strong></small></a>
+						&nbsp; <a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary"> New Category </span></strong></small></a>
 				{% endif %}
+				
+				&nbsp; <a href="{{url_for('showCategoriesEndPoint', endPoint='JSON')}}"><small><strong><span class="label label-primary"> { JSONify } </span></strong></small></a>
+
+				&nbsp; <a href="{{url_for('showCategoriesEndPoint', endoint='XML')}}"><small><strong><span class="label label-primary"> < XMLify > </span></strong></small></a>
+
+
 				</h4></p>
 
 				<hr>
 
 				{% for category in categories %}
 
-					<a href = "{{url_for('showCategoryItems', category_id = category.id)}}">
+					<a href = "{{url_for('showCategoryItems', category_id=category.id)}}">
 						<h3>{{category.vehicle_type}}</h3></a>
 					<h3><small>{{category.description}}</small></h3>
 					<h4><small>Created by <a href="mailto:{{category.creator.email}}"> {{category.creator.name}}</a></small></h4>
@@ -28,7 +34,7 @@
 
 					{% if "username" in session %}
 						{% if session.user_id == category.user_id %}
-							<p><h4><a href = "{{url_for('editCategory', category_id = category.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
+							<p><h4><a href = "{{url_for('editCategory', category_id=category.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
 							{% if category.empty %}
 								<a href = "{{url_for('deleteCategory', category_id = category.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
 							{% else %}

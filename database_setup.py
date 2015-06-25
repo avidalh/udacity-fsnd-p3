@@ -16,25 +16,34 @@ class Users(Base):
     email = Column(String(250), nullable = False)
     picture = Column(String(250))
 
-# cars 
+    @property
+    def serialize(self):
+        ''' return object data in easily serializeable format '''
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'picture': self.picture
+        }
+
+
 class Categories(Base):
     __tablename__ = 'categories'
     
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     users = relationship(Users)
-    
     vehicle_type = Column(String(250), nullable=False)
-    #picture = Column(String(250))
     description = Column(String(500))
 
     @property
     def serialize(self):
        """Return object data in easily serializeable format"""
        return {
-           'name'         : self.name,
-           'id'           : self.id,
-           # 'picture'      : self.picture,
+            'id': self.id,
+            'user_id': self.user_id,
+            'vehicle_type': self.vehicle_type,
+            'description': self.description
        }
 
 
@@ -46,7 +55,6 @@ class Items(Base):
     categories = relationship(Categories)
     user_id = Column(Integer, ForeignKey('users.id'))
     users = relationship(Users)
-
     make = Column(String(250), nullable=False)
     model = Column(String(250), nullable=False)
     description = Column(String(2000))
@@ -66,13 +74,27 @@ class Items(Base):
 
     @property
     def serialize(self):
-       """Return object data in easily serializeable format"""
-       return {
-           'make'           : self.make,
-           'model'           : self.model,
-           'description'    : self.description,
-           'id'             : self.id,
-       }
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'category_id': self.category_id,
+            'user_id': self.user_id,
+            'make': self.make,
+            'model': self.model,
+            'description': self.description,
+            'picture1': self.picture1,
+            'picture2': self.picture2,
+            'picture3': self.picture3,
+            'displacement': self.displacement,
+            'engine': self.engine,
+            'cylinders': self.cylinders,
+            'power': self.power,
+            'speed': self.speed,
+            'seats': self.seats,
+            'weight': self.weight,
+            'year': self.weight,
+            'price': self.price
+        }
 
 
 if __name__ == '__main__':
