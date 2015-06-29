@@ -3,7 +3,7 @@
 {% include "header.html" %}
 
 <div class="container fluid">
-    <div class="row">
+    <div class="row" style="margin-bottom: 100px">
 
         {% include "flash.html" %}
         
@@ -14,28 +14,30 @@
 
             <form action="{{url_for('editItem', category_id=item.category_id, item_id=item.id)}}" method = "post">
                 <div class="form-group">
-                    <label for="make">Make:</label><input type ="text" class="form-control" name="make",
+                    <label for="make">Make:</label><input type ="text" class="form-control" maxlength="250" name="make",
                         value={{item.make}}>
                     <br>
-                    <label for="model">Model:</label><input type ="text" class="form-control" name="model",
+                    <label for="model">Model:</label><input type ="text" class="form-control" maxlength="250" name="model",
                         value={{item.model}}>
                     <br>
-                    <label for="description">Description:</label><input type ="text" class="form-control" name="description", value={{item.description}}><br>
-                    <label for="picture1">picture1:</label><input type ="text" class="form-control" name="picture1", value={{item.picture1}}><br>
-                    <label for="picture2">picture2:</label><input type ="text" class="form-control" name="picture2", value={{item.picture2}}><br>
-                    <label for="picture3">picture3:</label><input type ="text" class="form-control" name="picture3", value={{item.picture3}}><br>
-                    <label for="displacement">Displacement:</label><input type ="text" class="form-control" name="displacement", value={{item.displacement}}><br>
-                    <label for="engine">Engine:</label><input type ="text" class="form-control" name="engine", value={{item.engine}}><br>
-                    <label for="cylinders">Cylinders:</label><input type ="text" class="form-control" name="cylinders", value={{item.cylinders}}><br>
-                    <label for="power">Power:</label><input type ="text" class="form-control" name="power", value={{item.power}}><br>
-                    <label for="speed">Speed:</label><input type ="text" class="form-control" name="speed", value={{item.speed}}><br>
-                    <label for="seats">Seats:</label><input type ="text" class="form-control" name="seats", value={{item.seats}}><br>
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" rows ="4" maxlength="2000" type ="text" class="form-control" name="description">{{item.description}}</textarea><br>
+                    <!-- <input type ="text" class="form-control" name="description", value={{item.description}}><br> -->
+                    <label for="picture1">picture1:</label><input type ="text" class="form-control" maxlength="250" name="picture1", value={{item.picture1}}><br>
+                    <label for="picture2">picture2:</label><input type ="text" class="form-control" maxlength="250" name="picture2", value={{item.picture2}}><br>
+                    <label for="picture3">picture3:</label><input type ="text" class="form-control" maxlength="250" name="picture3", value={{item.picture3}}><br>
+                    <label for="displacement">Displacement:</label><input type ="text" class="form-control" maxlength="20" name="displacement", value={{item.displacement}}><br>
+                    <label for="engine">Engine:</label><input type ="text" class="form-control" maxlength="50" name="engine", value={{item.engine}}><br>
+                    <label for="cylinders">Cylinders:</label><input type ="text" class="form-control" maxlength="20" name="cylinders", value={{item.cylinders}}><br>
+                    <label for="power">Power:</label><input type ="text" class="form-control" maxlength="20" name="power", value={{item.power}}><br>
+                    <label for="speed">Speed:</label><input type ="text" class="form-control" maxlength="20" name="speed", value={{item.speed}}><br>
+                    <label for="seats">Seats:</label><input type ="text" class="form-control" maxlength="20" name="seats", value={{item.seats}}><br>
                     
-                    <label for="weight">Weight:</label><input type ="text" class="form-control" name="weight", value={{item.weight}}><br>
+                    <label for="weight">Weight:</label><input type ="text" class="form-control" maxlength="20" name="weight", value={{item.weight}}><br>
                     
-                    <label for="year">Year:</label><input type ="text" class="form-control" name="year", value={{item.year}}><br>
+                    <label for="year">Year:</label><input type ="text" class="form-control" maxlength="20" name="year", value={{item.year}}><br>
 
-                    <label for="price">Price:</label><input type ="text" class="form-control" name="price", value={{item.price}}><br>
+                    <label for="price">Price:</label><input type ="text" class="form-control" maxlength="20" name="price", value={{item.price}}><br>
                     
                     <div class="padding-bottom"></div>
                     <button type="submit" class="btn btn-success" id="submit" type="submit" value="save" name="btn">

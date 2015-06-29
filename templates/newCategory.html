@@ -14,9 +14,10 @@
             <form action="{{url_for('newCategory')}}" method = "post">
                 <div class="form-group">
                     <label for="vehicle_type">Vehicle type:</label>
-                        <input type ="text" class="form-control" name="vehicle_type" value="Category">
+                        <input maxlength="250" rows="3" type ="text" class="form-control" name="vehicle_type" value="Category">
                     <label for="description">Description:</label>
-                        <input type ="text" class="form-control" name="description" value="Category description">
+                        <!-- <textarea class="form-control" rows="3" placeholder="What's up?" required></textarea> -->
+                        <textarea class="form-control" rows ="4" maxlength="500" type ="text" class="form-control" name="description" value="Category description"></textarea>
                 </div>    
                 <div class="padding-bottom">
                     

@@ -1,3 +1,5 @@
+
+
 from flask import Flask, render_template, request, redirect, jsonify, url_for,\
 flash, json
 
@@ -15,24 +17,19 @@ from flask import session as login_session
 import random, string
 
 
-#IMPORTS FOR THIS STEP
+# IMPORTS FOR THIS STEP
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
-# import json 
 from flask import make_response
 import requests
 
 import time
 
-# from OnlineConvert import OnlineConvert
-# from xml.etree.ElementTree import Element
-# import json
 from BeautifulSoup import BeautifulStoneSoup
-# from Py2XML import Py2XML
 import dicttoxml
 
-#Log to strderr
+# Log to strderr
 import logging
 from logging import StreamHandler
 file_handler = StreamHandler()
@@ -68,45 +65,6 @@ def showItems():
                            latestItems=latestItems)
 
 
-# def dict_to_xml(tag, d):
-#     '''
-#     Turn a simple dict of key/value pairs into XML
-#     '''
-#     elem = Element(tag)
-#     for key, val in d.items():
-#         child = Element(key)
-#         child.text = str(val)
-#         elem.append(child)
-#     return elem
-
-
-# JSON 
-@app.route('/itemCatalog/endPoint')
-def itemCatalogEndPoint(endPoint='xml'):
-    latestCategories = session.query(Categories).order_by(Categories.id.\
-        desc()).limit(5).all()
-    latestItems = session.query(Items).order_by(Items.id.desc()).limit(7).\
-        all()
-    
-    #return jsonify(Categories=[c.serialize for c in latestCategories])
-
-    serial_data_1 = {'Latest Categories': [c.serialize for c in latestCategories]}
-    serial_data_2 = {'Latest Items': [i.serialize for i in latestItems]}
-
-    endPoint_type = "JSON endpoint data"
-    JSON_data = json.dumps(serial_data_1, indent=4) +'\n\n\n'+ json.dumps(serial_data_2, indent=4)
-    if endPoint == 'JSON':
-        return render_template('endPoint.html', endPoint=endPoint_type, endPointData=JSON_data)  # ok
-
-    #object = [c.serialize for c in latestCategories]
-    # print (object)
-
-    xml_string = dicttoxml.dicttoxml(serial_data_1 )  # ok
-    xml_string = BeautifulStoneSoup(xml_string).prettify()  # ok
-    endPoint = "XML endpoint data"
-    return render_template('endPoint.html', endPoint=endPoint, endPointData=xml_string)  # ok
-
-
 # Show categories
 @app.route('/itemCatalog/categories/', methods=['GET','POST'])
 def showCategories():
@@ -122,7 +80,7 @@ def showCategories():
     return render_template('showCategories.html', categories=categories)
 
 # JSON 
-@app.route('/itemCatalog/categories/endPoint/')
+@app.route('/itemCatalog/categories/endPoint/<endPoint>/')
 def showCategoriesEndPoint(endPoint='XML'):
     categories = session.query(Categories).order_by(Categories.id.asc()).\
         all()
@@ -130,20 +88,20 @@ def showCategoriesEndPoint(endPoint='XML'):
     # return jsonify(Categories=[c.serialize for c in categories])
 
     serial_data = {'Categories': [c.serialize for c in categories]}
-
-    endPoint_type = "JSON endpoint data"
-    JSON_data = json.dumps(serial_data, indent=4)
+    
     if endPoint == 'JSON':
+        JSON_data = json.dumps(serial_data, indent=4)
+        endPoint_type = "JSON endpoint data"
         return render_template('endPoint.html', 
-                               endPoint=endPoint_type, endPointData=JSON_data)
+                               endPoint_type=endPoint_type,
+                               endPointData=JSON_data)
 
-    #object = [c.serialize for c in latestCategories]
-    # print (object)
-
-    # xml_string = dicttoxml.dicttoxml(serial_data)
-    xml_string = BeautifulStoneSoup(dicttoxml.dicttoxml(serial_data)).prettify()
-    endPoint_type = "XML endpoint data"
-    return render_template('endPoint.html', endPoint_type=endPoint_type, endPointData=xml_string)  # ok
+    if endPoint == 'XML':
+        xml_string = BeautifulStoneSoup(dicttoxml.dicttoxml(serial_data)).prettify()
+        endPoint_type = "XML endpoint data"
+        return render_template('endPoint.html',
+                               endPoint_type=endPoint_type,
+                               endPointData=xml_string)
 
 
 # Create a new category
@@ -210,6 +168,8 @@ def deleteCategory(category_id):
         return redirect('/itemCatalog/login')
     if categoryToDelete.user_id != login_session['user_id']:
         return render_template('warning.html')
+    if not isCategoryEmpty(categoryToDelete.id):
+        return render_template('warning.html')
 
     if request.method == 'POST':
         if request.form['btn'] == 'delete':
@@ -249,31 +209,86 @@ def showCategoryItems(category_id):
                            selectedCategory = selectedCategory)
 
 
-# JSON 
-@app.route('/itemCatalog/category/<int:category_id>/JSON/')
-@app.route('/itemCatalog/category/<int:category_id>/items/JSON/')
-def showCategoryItemsJSON(category_id):
+# # JSON 
+# @app.route('/itemCatalog/category/<int:category_id>/JSON/')
+# @app.route('/itemCatalog/category/<int:category_id>/items/JSON/')
+# def showCategoryItemsJSON(category_id):
+#     items = session.query(Items).order_by(Items.id.desc()).\
+#         filter_by(category_id=category_id).all()
+        
+# End point JSON / XML
+@app.route('/itemCatalog/category/<int:category_id>/endPoint/<endPoint>/')
+def showCategoryItemsEndPoint(category_id, endPoint='XML'):
+    
     items = session.query(Items).order_by(Items.id.desc()).\
         filter_by(category_id=category_id).all()
-        
-    return jsonify(Items=[i.serialize for i in items])
+    
+    category = session.query(Categories).filter_by(id=category_id).\
+        all()
+    
+    # return jsonify(Categories=[c.serialize for c in categories])
+    # print category[0].vehicle_type
+    serial_data = {category[0].vehicle_type: [i.serialize for i in items]}
+    
+    if endPoint == 'JSON':
+        JSON_data = json.dumps(serial_data, indent=4)
+        endPoint_type = "JSON endpoint data"
+        return render_template('endPoint.html', 
+                               endPoint_type=endPoint_type,
+                               endPointData=JSON_data)
+
+    if endPoint == 'XML':
+        xml_string = BeautifulStoneSoup(dicttoxml.dicttoxml(serial_data)).prettify()
+        endPoint_type = "XML endpoint data"
+        return render_template('endPoint.html',
+                               endPoint_type=endPoint_type,
+                               endPointData=xml_string)
+
 
 
 # Show an item
 @app.route('/itemCatalog/category/<int:category_id>/item/<int:item_id>')
 def showItem(category_id, item_id):
     #categories = session.query(Categories).order_by(Categories.id.desc()).all()
-    item = session.query(Items).filter_by(id = item_id).one()
+    item = session.query(Items).filter_by(id=item_id).one()
 
     itemCreator = session.query(Users).filter_by(id=item.user_id).one()
 
     return render_template('showItem.html', item=item, itemCreator=itemCreator)
     
-@app.route('/itemCatalog/category/<int:category_id>/item/<int:item_id>/JSON/')
-def showItemJSON(category_id, item_id):
-    item = session.query(Items).filter_by(id = item_id).one()
+# @app.route('/itemCatalog/category/<int:category_id>/item/<int:item_id>/JSON/')
+# def showItemJSON(category_id, item_id):
+#     item = session.query(Items).filter_by(id = item_id).one()
 
-    return jsonify(Items=item.serialize)
+#     return jsonify(Items=item.serialize)
+
+# End point JSON / XML
+@app.route('/itemCatalog/category/<int:category_id>/item/<int:item_id>/endPoint/<endPoint>/')
+def showItemEndPoint(category_id, item_id, endPoint='XML'):
+    
+    item = session.query(Items).filter_by(id=item_id).all()
+    
+    # category = session.query(Categories).filter_by(id=category_id).\
+    #     all()
+    
+    # return jsonify(Categories=[c.serialize for c in categories])
+    # print category[0].vehicle_type
+    serial_data = {item[0].model: [i.serialize for i in item]}
+    
+    if endPoint == 'JSON':
+        JSON_data = json.dumps(serial_data, indent=4)
+        endPoint_type = "JSON endpoint data"
+        return render_template('endPoint.html', 
+                               endPoint_type=endPoint_type,
+                               endPointData=JSON_data)
+
+    if endPoint == 'XML':
+        xml_string = BeautifulStoneSoup(dicttoxml.dicttoxml(serial_data)).prettify()
+        endPoint_type = "XML endpoint data"
+        return render_template('endPoint.html',
+                               endPoint_type=endPoint_type,
+                               endPointData=xml_string)
+
 
 
 # Create a new item
@@ -391,29 +406,6 @@ def deleteItem(category_id, item_id):
                                category_id = category_id)
     
 
-# # JSON 
-# @app.route('/itemCatalog/category/<int:category_id>/item/JSON')
-# def categoryMenuJSON(restaurant_id):
-#     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-#     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).\
-#         all()
-
-#     return jsonify(MenuItems=[i.serialize for i in items])
-
-
-
-# @app.route('/itemCatalog/category/<int:category_id>/items/<int:item_id>/JSON')
-# def mItemJSON(restaurant_id, menu_id):
-#     Menu_Item = session.query(MenuItem).filter_by(id = menu_id).one()
-#     return jsonify(Menu_Item = Menu_Item.serialize)
-
-
-# @app.route('/itemCatalog/category/JSON')
-# def restaurantsJSON():
-#     restaurants = session.query(Restaurant).all()
-#     return jsonify(restaurants= [r.serialize for r in restaurants])
-
-
 def getCategoryInfo(category_id):
     categoryName = session.query(Categories).filter_by(id = category_id).one()
     return categoryName.vehicle_type
@@ -451,15 +443,15 @@ def showLogin():
 @app.route('/itemCatalog/gconnect', methods=['POST'])
 def gconnect():
   
-  #print 'received state of %s' %request.args.get('state')
-  #print 'login_sesion["state"] = %s' %login_session['state']
+  # print 'received state of %s' %request.args.get('state')
+  # print 'login_sesion["state"] = %s' %login_session['state']
   if request.args.get('state') != login_session['state']:
     response = make_response(json.dumps('Invalid state parameter.'), 401)
     response.headers['Content-Type'] = 'application/json'
     return response
   
-  #gplus_id = request.args.get('gplus_id')
-  #print "request.args.get('gplus_id') = %s" %request.args.get('gplus_id')
+  # gplus_id = request.args.get('gplus_id')
+  # print "request.args.get('gplus_id') = %s" %request.args.get('gplus_id')
   code = request.data
   # print "received code of %s " % code
 
@@ -524,12 +516,12 @@ def gconnect():
   data = json.loads(answer.text)
   
   
-  #login_session['credentials'] = credentials
-  #login_session['gplus_id'] = gplus_id
+  # login_session['credentials'] = credentials
+  # login_session['gplus_id'] = gplus_id
   login_session['username'] = data["name"]
   login_session['picture'] = data["picture"]
   login_session['email'] = data["email"]
-  #print login_session['email']
+  # print login_session['email']
 
   # see if user exists, if it doesn't make a new one
   user_id = getUserID(data["email"])
@@ -554,7 +546,7 @@ def gconnect():
   
   return output
 
-#Revoke current user's token and reset their login_session.
+# Revoke current user's token and reset their login_session.
 @app.route("/itemCatalog/gdisconnect")
 def gdisconnect():
   # Only disconnect a connected user.
@@ -575,7 +567,6 @@ def gdisconnect():
 
   if result['status'] == '200':
     # Reset the user's session.
-    
     response = make_response(json.dumps('Successfully disconnected.'), 200)
     response.headers['Content-Type'] = 'application/json'
     return response
@@ -597,7 +588,7 @@ def fbconnect():
   access_token = request.data
   print "access token received %s "% access_token
 
-  #Exchange client token for long-lived server-side token
+  # Exchange client token for long-lived server-side token
  ## GET /oauth/access_token?grant_type=fb_exchange_token&client_id={app-id}&client_secret={app-secret}&fb_exchange_token={short-lived-token} 
   app_id = json.loads(
       open('fb_client_secrets.json', 'r').read())['web']['app_id']
@@ -607,9 +598,9 @@ def fbconnect():
   h = httplib2.Http()
   result = h.request(url, 'GET')[1]
 
-  #Use token to get user info from API 
+  # Use token to get user info from API 
   userinfo_url =  "https://graph.facebook.com/v2.2/me"
-  #strip expire tag from access token
+  # strip expire tag from access token
   token = result.split("&")[0]
   
   url = 'https://graph.facebook.com/v2.2/me?%s' % token
@@ -625,7 +616,7 @@ def fbconnect():
   
   
 
-  #Get user picture
+  # Get user picture
   url = 'https://graph.facebook.com/v2.2/me/picture?%s&redirect=0&height=200&width=200' % token
   h = httplib2.Http()
   result = h.request(url, 'GET')[1]
@@ -717,7 +708,7 @@ def disconnect(byTimedOut=False):
 
 @app.context_processor
 def inject_user():
-    debug = True
+    debug = False
     return dict(debug=debug)
 
 
@@ -725,7 +716,7 @@ def inject_user():
 def make_session_permanent():
     # auto log off code
     if 'timeStamp' in login_session:
-        if time.time() - login_session['timeStamp'] > 300:
+        if time.time() - login_session['timeStamp'] > 300:  # 5 minutes
             disconnect(byTimedOut=True)
             flash("Your session has expired!")
             return redirect(url_for('showItems'))
@@ -735,8 +726,6 @@ def make_session_permanent():
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
-    # app.JSONIFY_PRETTYPRINT_REGULAR = False
-    # print "JSONIFY_PRETTYPRINT_REGULAR:", app.JSONIFY_PRETTYPRINT_REGULAR
     app.debug = True
     app.run(host = '0.0.0.0', port = 8080)
 

@@ -3,22 +3,25 @@
 {% include "header.html" %}
 
 <div class="container fluid">
-	<div class="row">
+	<div class="row" style="margin-bottom: 100px">
 
 		{% include "flash.html" %}
 
 		<div class="col-md-9 col-md-offset-1"  style="border-bottom: 0px solid #ccc">
 			<h1>Categories</h1>
 				<p><h4>
+				<!-- New category button -->
 				<a href="/itemCatalog"><small> go back </small></a>
 				{% if "username" in session %}
 						&nbsp; <a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary"> New Category </span></strong></small></a>
-				{% endif %}
 				
-				&nbsp; <a href="{{url_for('showCategoriesEndPoint', endPoint='JSON')}}"><small><strong><span class="label label-primary"> { JSONify } </span></strong></small></a>
+						<!-- Endpoints buttons -->
+							<!-- JSON output -->
+						&nbsp; <a href="{{url_for('showCategoriesEndPoint', endPoint='JSON')}}"><small><strong><span class="label label-primary"> { JSONify } </span></strong></small></a>
+							<!-- XML output -->
+						&nbsp; <a href="{{url_for('showCategoriesEndPoint', endPoint='XML')}}"> <small><strong><span class="label label-primary"> < XMLify > </span></strong></small></a>
 
-				&nbsp; <a href="{{url_for('showCategoriesEndPoint', endoint='XML')}}"><small><strong><span class="label label-primary"> < XMLify > </span></strong></small></a>
-
+				{% endif %}
 
 				</h4></p>
 
@@ -53,11 +56,11 @@
 				{% endfor %}
 		</div>
 	</div>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-12 col-md-offset-0"  style="border-bottom: 0px solid #ccc">
 			<hr style="border: 0px">
 		</div>
-	</div>
+	</div> -->
 </div>
 
 {% include "footer.html" %} 

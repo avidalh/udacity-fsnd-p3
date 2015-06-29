@@ -12,8 +12,11 @@
 <!-------------------------------- GOOGLE PLUS SIGN IN  ---------------------------------->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 col-md-offset-3">
-            <div class="row" id="signInDiv">
+        <div class="col-md-8 col-md-offset-2"><h1>Log In page...</h1></div>
+    </div>
+    <div class="row"  id="signInDiv" style="margin-top: 20px">
+        <div class="col-md-8 col-md-offset-2" style="border: 1px solid #ccc; border-radius: 5px; background-color: #f8f8f8;">
+            <div class="row">
                 <div class="col-md-4 col-md-offset-0">
                     <p>Login with google:</p>
                         <div id="signInButton">
@@ -25,18 +28,18 @@
                             data-cookiepolicy="single_host_origin"
                             data-callback="signInCallback"
                             data-approvalprompt="force">
-                            </span>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1">
-                        <p>Login with facebook:</p>
-                            <!-- Login with Facebook -->
-                            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                                <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-                            </fb:login-button>
-                        <!-- </button> -->
-                    </div>
+                    </span>
                 </div>
+                <div class="col-md-4 col-md-offset-4">
+                    <p>Login with facebook:</p>
+                        <!-- Login with Facebook -->
+                        <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+                            <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+                        </fb:login-button>
+                    <!-- </button> -->
+                </div>
+            </div>
         </div>
     </div>
 

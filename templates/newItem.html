@@ -3,7 +3,7 @@
 {% include "header.html" %}
 
 <div class="container fluid">
-    <div class="row">
+    <div class="row" style="margin-bottom: 100px">
 
         {% include "flash.html" %}
 
@@ -12,21 +12,24 @@
 
             <form action="{{url_for('newItem', category_id = category_id)}}" method = "post">
             	<div class="form-group">
-                    <label for="make">Make:</label><input type ="text" class="form-control" name="make"><br>
-                    <label for="model">Model:</label><input type ="text" class="form-control" name="model"><br>
-                    <label for="description">Description:</label><input type ="text" class="form-control" name="description"><br>
-                    <label for="picture1">picture1:</label><input type ="text" class="form-control" name="picture1"><br>
-                    <label for="picture2">picture2:</label><input type ="text" class="form-control" name="picture2"><br>
-                    <label for="picture3">picture3:</label><input type ="text" class="form-control" name="picture3"><br>
-                    <label for="displacement">Displacement:</label><input type ="text" class="form-control" name="displacement"><br>
-                    <label for="engine">Engine:</label><input type ="text" class="form-control" name="engine"><br>
-                    <label for="cylinders">Cylinders:</label><input type ="text" class="form-control" name="cylinders"><br>
-                    <label for="power">Power:</label><input type ="text" class="form-control" name="power"><br>
-                    <label for="speed">Speed:</label><input type ="text" class="form-control" name="speed"><br>
-                    <label for="seats">Seats:</label><input type ="text" class="form-control" name="seats"><br>
-                    <label for="weight">Weight:</label><input type ="text" class="form-control" name="weight"><br>
-                    <label for="year">Year:</label><input type ="text" class="form-control" name="year"><br>
-                    <label for="price">Price:</label><input type ="text" class="form-control" name="price"><br>
+                    <label for="make">Make:</label><input type ="text" class="form-control" maxlength="250" name="make"><br>
+                    <label for="model">Model:</label><input type ="text" class="form-control" maxlength="250" name="model"><br>
+                    <label for="description">Description:</label>
+                    <!-- <input type ="text" class="form-control" name="description"><br> -->
+                    <textarea class="form-control" rows ="4" maxlength="2000" type ="text" class="form-control" name="description" value="Item description"></textarea><br>
+
+                    <label for="picture1">picture1:</label><input type ="text" class="form-control" maxlength="250" name="picture1"><br>
+                    <label for="picture2">picture2:</label><input type ="text" class="form-control" maxlength="250" name="picture2"><br>
+                    <label for="picture3">picture3:</label><input type ="text" class="form-control" maxlength="250" name="picture3"><br>
+                    <label for="displacement">Displacement:</label><input type ="text" class="form-control" maxlength="20" name="displacement"><br>
+                    <label for="engine">Engine:</label><input type ="text" class="form-control" maxlength="50" name="engine"><br>
+                    <label for="cylinders">Cylinders:</label><input type ="text" class="form-control" maxlength="20" name="cylinders"><br>
+                    <label for="power">Power:</label><input type ="text" class="form-control" maxlength="20" name="power"><br>
+                    <label for="speed">Speed:</label><input type ="text" class="form-control" maxlength="20" name="speed"><br>
+                    <label for="seats">Seats:</label><input type ="text" class="form-control" maxlength="20" name="seats"><br>
+                    <label for="weight">Weight:</label><input type ="text" class="form-control" maxlength="20" name="weight"><br>
+                    <label for="year">Year:</label><input type ="text" class="form-control" maxlength="20" name="year"><br>
+                    <label for="price">Price:</label><input type ="text" class="form-control" maxlength="20" name="price"><br>
                 </div>
 
                 <div class="padding-bottom">
