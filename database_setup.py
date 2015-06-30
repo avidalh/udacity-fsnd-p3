@@ -98,7 +98,8 @@ class Items(Base):
 
 
 if __name__ == '__main__':
-    engine = create_engine('postgresql:///catalog')
+    # engine = create_engine('postgresql:///catalog')
+    engine = create_engine('sqlite:///catalog.sql')
 
     # drops all table's rows
     Base.metadata.drop_all(engine)

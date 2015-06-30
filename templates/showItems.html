@@ -28,7 +28,7 @@
 									<p><h4 class="text-danger">{{category.vehicle_type}}</h4></p>
 								{% else %}
 									<p><h4><a href = "{{url_for('showCategoryItems', category_id = category.id)}}">
-									{{category.vehicle_type}}</a></h4></p>
+									{{category.vehicle_type}}</a><small> ({{category.len}} items)</small></h4></p>
 								{% endif %}
 
 								{%if 1 == 2%} <!-- Just to avoid rendering the next code -->

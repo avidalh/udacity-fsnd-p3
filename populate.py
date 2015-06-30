@@ -5,7 +5,9 @@ from sqlalchemy.orm import sessionmaker
  
 from database_setup import Categories, Base, Items, Users
  
-engine = create_engine('postgresql:///catalog')
+# engine = create_engine('postgresql:///catalog')
+engine = create_engine('sqlite:///catalog.sql')
+
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -25,15 +27,15 @@ def populate():
     User1 = Users(
         name = "Angel Vidal",
     	email = "avidalh@gmail.com",
-    	picture = "https://lh3.googleusercontent.com/-KtpXNdMG81c/AAAAAAAAAAI/AAAAAAAABIo/EZzawwupWlc/photo.jpg")  # nopep8
+    	picture = "https://lh3.googleusercontent.com/-KtpXNdMG81c/AAAAAAAAAAI/AAAAAAAABIo/EZzawwupWlc/photo.jpg")  # noqa
 
     session.add(User1)
     session.commit()
 
     #Category 1
     economy = Categories(
-		vehicle_type = "Economy",
-	  	description = "Simple and normal car to use every day...",
+		vehicle_type = "Subcompact",
+	  	description = "Something that is smaller than the compact size version of it, especially a very small car.",
 	  	# picture = "",
 	  	user_id = 1)
 
@@ -42,8 +44,8 @@ def populate():
 
     #Category 2
     fullSize = Categories(
-        vehicle_type = "Full Size",
-        description = "The Full Sized One!",
+        vehicle_type = "Compact",
+        description = "...",
         # picture = "",
         user_id = 1)
 
@@ -52,8 +54,8 @@ def populate():
 
     #Category 3
     minivan = Categories(
-        vehicle_type = "Minivan",
-        description = "The short type Van...",
+        vehicle_type = "Mid-size",
+        description = "...",
         # picture = "",
         user_id = 1)
 
@@ -62,8 +64,8 @@ def populate():
 
     #Category 4
     compact = Categories(
-                        vehicle_type = "Compact",
-                        description = "The Compact",
+                        vehicle_type = "Full-size",
+                        description = "...",
                         # picture = "",
                         user_id = 1,
                         )
@@ -111,9 +113,9 @@ def populate():
     			make = "Toyota",
         		model = "Corolla",
         		description = "A white one...",
-       			picture1 = "http://bestsellingcarsblog.com/wp-content/uploads/2012/05/Toyota-Corolla-Finland-1998.jpg",
-        		picture2 = "http://i.ytimg.com/vi/2jo4jdFhasY/maxresdefault.jpg",
-                picture3 = "http://www.todoautos.com.pe/attachments/f50/370962d1283995716-vendo-toyota-corolla-1998-hatchback-imagen-019.jpg",
+       			picture1 = "http://bestsellingcarsblog.com/wp-content/uploads/2012/05/Toyota-Corolla-Finland-1998.jpg",  # noqa
+        		picture2 = "http://i.ytimg.com/vi/2jo4jdFhasY/maxresdefault.jpg",  # noqa
+                picture3 = "http://www.todoautos.com.pe/attachments/f50/370962d1283995716-vendo-toyota-corolla-1998-hatchback-imagen-019.jpg",  # noqa
                 displacement = "1300 cm3",
                 engine = "Petrol",
         		cylinders = "4",
@@ -133,9 +135,9 @@ def populate():
                 make = "Renault",
                 model = "Megane",
                 description = "",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png" ,
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png" ,  # noqa
                 displacement = "1300 cm3",
                 engine = "Petrol",
                 cylinders = "4",
@@ -155,9 +157,9 @@ def populate():
                 make = "VolksWagen",
                 model = "Bettle",
                 description = "",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
                 displacement = "1300 cm3",
                 engine = "Petrol",
                 cylinders = "4",
@@ -177,9 +179,9 @@ def populate():
                 make = "Mitsubishi",
                 model = "Space Wagon",
                 description = "The big one",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
                 displacement = "2400cm3",
                 engine = "Petrol",
                 cylinders = "4",
@@ -199,9 +201,9 @@ def populate():
                 make = "Renault",
                 model = "Space",
                 description = "",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
                 displacement = "1900cm3",
                 engine = "Diesel",
                 cylinders = "4",
@@ -221,9 +223,9 @@ def populate():
                 make = "VolksWagen",
                 model = "Touran",
                 description = "",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
                 displacement = "1300 cm3",
                 engine = "Diesel",
                 cylinders = "4",
@@ -241,23 +243,23 @@ def populate():
 
 
 #Category 3
-    familiar = Categories(
-                        vehicle_type = "All terrain vehicle, aka 4x4",
-                        description = "All terrain vehicle to use every day to go to work or similar...",
-                        # picture = "",
-                        user_id = 1,
-                        )
+    # familiar = Categories(
+    #                     vehicle_type = "All terrain vehicle, aka 4x4",
+    #                     description = "All terrain vehicle to use every day to go to work or similar...",
+    #                     # picture = "",
+    #                     user_id = 1,
+    #                     )
 
-    session.add(familiar)
-    session.commit()
+    # session.add(familiar)
+    # session.commit()
 
     car1 = Items(
                 make = "Toyota",
                 model = "Land Cruiser",
                 description = "The big one...",
-                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
-                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",
+                picture1 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture2 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
+                picture3 = "http://plainicon.com/dboard/userprod/2825_96ae8/prod_thumb/plainicon.com-49509-w-128px-a052.png",  # noqa
                 displacement = "2500 cm3",
                 engine = "Diesel",
                 cylinders = "6",
@@ -312,9 +314,9 @@ def populate():
                 make = "VolksWagen",
                 model = "Tuareg",
                 description = "",
-                picture1 = "http://media.caranddriver.com/images/14q2/584477/2015-volkswagen-touareg-photos-and-info-news-car-and-driver-photo-589412-s-429x262.jpg",
-                picture2 = "http://image.motortrend.ca/f/87234131/2015-Volkswagen-Touareg-TDI-inteiror.jpg",
-                picture3 = "http://www.gtspirit.com/wp-content/uploads/2014/09/gtspirit-2015-volkswagen-touareg28-640x426.jpg",
+                picture1 = "http://media.caranddriver.com/images/14q2/584477/2015-volkswagen-touareg-photos-and-info-news-car-and-driver-photo-589412-s-429x262.jpg",  # noqa
+                picture2 = "http://image.motortrend.ca/f/87234131/2015-Volkswagen-Touareg-TDI-inteiror.jpg",  # noqa
+                picture3 = "http://www.gtspirit.com/wp-content/uploads/2014/09/gtspirit-2015-volkswagen-touareg28-640x426.jpg",  # noqa
                 displacement = "3300 cm3",
                 engine = "Petrol",
                 cylinders = "8",

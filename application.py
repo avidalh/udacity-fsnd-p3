@@ -51,7 +51,8 @@ app.logger.setLevel(logging.DEBUG)  # set the desired logging level here
 app.logger.addHandler(file_handler)
 
 
-engine = create_engine('postgresql:///catalog')
+# engine = create_engine('postgresql:///catalog')
+engine = create_engine('sqlite:///catalog.sql')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -211,6 +212,7 @@ def showCategoryItems(category_id):
         all()
     for category in categories:
         category.empty = isCategoryEmpty(category.id)
+        category.len = itemsInCat(category.id)
 
     return render_template('showItems.html',
                            items = items,
@@ -426,6 +428,10 @@ def isCategoryEmpty(category_id):
         return False
     else:
         return True
+
+
+def itemsInCat(category_id):
+    return len(session.query(Items).filter_by(category_id = category_id).all())
 
     
 def getUserInfo(user_id):
