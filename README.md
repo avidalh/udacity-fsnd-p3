@@ -9,18 +9,23 @@
 This is my FullStack NanoDegree's third project, aka **Item Catalog**.
 It's a web application based on Flask, SQLAlchemy and (of course) Python.
 
-<!-- ## Code Example -->
+The application is oriented to create, store, manage and show a **cars** item catalog. Log in is permited using oauth and facebook/google+ authentication. When logged in the applications permits create, modify and delete items and categories.
+In order to reach an "Exceeds Specs" the following aspects are covered:
 
-<!-- Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
- -->
+- API Endpoints. The app provides an XML endpoint for categories, items by category and individual items.
 
+- Items images. Every item has three fields to store pictures URL. All the item's fields are accessible to Create, Update and Delete once you've logged in.
 
+- Cross-Site Request Forgeries (CSRF) is prevented by checking loggedIn/userID when Create/Update/Delete operation is requested.
+
+- Code Quality. I've tried to write a well formatted and commented code, acordingly the PEP8 guide and PEP
+
+<!-- 
 ## Motivation
 
 This is my FullStack NanoDegree's third project, aka **Item Catalog**.
-<!-- 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
  -->
+
 
 ##Requirements
 
@@ -32,41 +37,43 @@ The easy way to be sure your system are ready to execute the application is by d
 ## Installation
 
 To install the application follow the nex steps:
+
 - Option 1: **Clone the repository.** If you are a **git** user do this: 
 	From the sytem's command line execute "**`git clone https://github.com/avidalh/udacity-fsnd-p3`**", this action will create the directory `udacity-fsnd-p3` where the project has been downloaded.
 
 - Option 2: **Download the zip file.** If you are not a **git** user:
 	Download the zip file **`https://github.com/avidalh/udacity-fsnd-p3/archive/master.zip`** from GitHub and descompress it on your system at the best place you decide.
 
-<!-- Provide code examples and explanations of how to get the project. -->
 
 ## Running the app
 
-The application can be executed on almost every system with python 2.7. (e.g. MacOS-X, Linux, Unixes, etc.) I've tested the correct the app in MacOS-X and Ubuntu, this last one running in a Vagrant virtual machine.
+The application can be executed on almost every system where python 2.7 had been installed (e.g. MacOS-X, Linux, Unixes, etc.) I've tested the app in MacOS-X and Ubuntu, this last one running in a Vagrant virtual machine.
+
 To execute the app you have some options:
-- To run the application just type **`python application`** on your system's command line.
-- Open the `application.py` with IDLE and select run.
 
-### Options:
-1- If you need to create the database file, **`catalog.sql`**, you can execute **`python database_setup.py`** and your new file will be created.
-2.- Auto-populating the database can be done by using **`python populate.py`**, this way some sample categories and items will be created to play with them.
+1. Running the application by just typing **`python application`** on your system's command line.
 
-<!-- Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
- -->
+2. Open the `application.py` with IDLE and select run.
+
+
+### Addons:
+
+1. If you need to create the database file, **`catalog.sql`**, you can execute **`python database_setup.py`** and your new file will be created.
+
+2. Auto-populating the database can be done by using **`python populate.py`**, this way some sample categories and items will be created to play with them.
+
 
 ## Tests
 
 The program has been tested by many users and (almost) all known bugs have been fixed. If you find some bug please email me and I will fix it when possible.
 
-<!-- Describe and show how to run the tests with code examples. -->
 
 ## Contributors
 
 I want to thank to all the people involved in my NanoDegree, family, workmates, friends, etc. To all of them 
 
-->Thank You!<-
+<h1><center>Thank You!</center></h1>
 
-<!-- Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable. -->
 
 ## License
 
