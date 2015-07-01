@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 """
 application.py
 Project-3 main file
 Udacity FSND
-
 """
+
 __author__ = "Angel Vidal"
 __contact__ = "avidalh@gmail.com"
 __date__ = "June 30, 2015"

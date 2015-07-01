@@ -70,7 +70,7 @@ The program has been tested by many users and (almost) all known bugs have been 
 
 ## Contributors
 
-I want to thank all the people involved in my NanoDegree, family, workmates, friends, etc. To all of them 
+I want to thank all the people involved in my NanoDegree, family, udacity (coaches, students and reviewers), workmates, friends, etc. To all of them 
 
 <h1><center>Thank You!</center></h1>
 
