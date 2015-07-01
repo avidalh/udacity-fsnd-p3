@@ -18,12 +18,13 @@
 										<span class="label label-primary"> Edit Item </span></a>
 									&nbsp; <a href = "{{url_for('deleteItem', category_id=item.category_id, item_id=item.id)}}">
 										<span class="label label-danger"> Delete Item </span></a>
-									<!-- Endpoints buttons -->
-									<!-- JSON output -->
-									&nbsp; <a href="{{url_for('showItemEndPoint', category_id=item.category_id, item_id=item.id, endPoint='JSON')}}"><span class="label label-primary"> { JSONify } </span></a>
-										<!-- XML output -->
-									&nbsp; <a href="{{url_for('showItemEndPoint', category_id=item.category_id, item_id=item.id, endPoint='XML')}}"> <span class="label label-primary"> < XMLify > </span></a>
 								{% endif %}
+								<!-- Endpoints buttons -->
+								<!-- JSON output -->
+								&nbsp; <a href="{{url_for('showItemEndPoint', category_id=item.category_id, item_id=item.id, endPoint='JSON')}}"><span class="label label-primary"> { JSONify } </span></a>
+									<!-- XML output -->
+								&nbsp; <a href="{{url_for('showItemEndPoint', category_id=item.category_id, item_id=item.id, endPoint='XML')}}"> <span class="label label-primary"> < XMLify > </span></a>
+								
 							{% endif %}
 						</h5></p>
 					</div>

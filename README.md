@@ -10,6 +10,9 @@ This is my FullStack NanoDegree's third project, aka **Item Catalog**.
 It's a web application based on Flask, SQLAlchemy and (of course) Python.
 
 The application is oriented to create, store, manage and show a **cars** item catalog. Log in is permitted using oauth and facebook/google+ authentication. When logged in the applications permits create, modify and delete items and categories.
+
+When logged in new categories and items can be created, modified and deleted if the user logged in is the owner of that categories/items.
+
 In order to reach an "Exceeds Specs" the following aspects are covered:
 
 - API Endpoints. The app provides an XML endpoint for categories, items by category and individual items.
@@ -18,13 +21,7 @@ In order to reach an "Exceeds Specs" the following aspects are covered:
 
 - Cross-Site Request Forgeries (CSRF) is prevented by checking loggedIn/userID when Create/Update/Delete operation is requested.
 
-- Code Quality. I've tried to write a well formatted and commented code, accordingly the PEP8 guide and PEP
-
-<!-- 
-## Motivation
-
-This is my FullStack NanoDegree's third project, aka **Item Catalog**.
- -->
+- Code Quality. I've tried to write a well formatted and commented code, accordingly the PEP8 guide and PEP. Some code lines (mostly URL strings) are longer than maximum pep8 lenght, but I think is more practical not to break them in order to get a more readable and clean code.
 
 
 ##Requirements

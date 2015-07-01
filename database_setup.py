@@ -1,21 +1,42 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# importing the required modules
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
- 
+
+
+"""
+database_setup.py
+Project-3 main file
+Udacity FSND
+
+Defines the DB schema.
+
+"""
+
+__author__ = "Angel Vidal"
+__contact__ = "avidalh@gmail.com"
+__date__ = "June 30, 2015"
+__version__ = "0.1 Release Candidate"
+
+
 Base = declarative_base()
 
 
+# define the users table
 class Users(Base):
     __tablename__ = 'users'
-   
-    id = Column(Integer, primary_key = True)
-    name = Column(String(250), nullable = False)
-    email = Column(String(250), nullable = False)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
+    # serialize function
     @property
     def serialize(self):
         ''' return object data in easily serializeable format '''
@@ -27,26 +48,29 @@ class Users(Base):
         }
 
 
+# define the categories table
 class Categories(Base):
     __tablename__ = 'categories'
-    
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     users = relationship(Users)
     vehicle_type = Column(String(250), nullable=False)
     description = Column(String(500))
 
+    # serialize function
     @property
     def serialize(self):
-       """Return object data in easily serializeable format"""
-       return {
+        """Return object data in easily serializeable format"""
+        return {
             'id': self.id,
             'user_id': self.user_id,
             'vehicle_type': self.vehicle_type,
             'description': self.description
-       }
+        }
 
 
+# define the items table
 class Items(Base):
     __tablename__ = 'items'
 
@@ -71,7 +95,7 @@ class Items(Base):
     year = Column(String(20))
     price = Column(String(20))
 
-
+    # serialize function
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -97,8 +121,12 @@ class Items(Base):
         }
 
 
+# main function
 if __name__ == '__main__':
+    # for systems with postgreSQL DB:
     # engine = create_engine('postgresql:///catalog')
+
+    # for systems with SQL lite:
     engine = create_engine('sqlite:///catalog.sql')
 
     # drops all table's rows
@@ -106,4 +134,3 @@ if __name__ == '__main__':
 
     # creates all tables
     Base.metadata.create_all(engine)
-
