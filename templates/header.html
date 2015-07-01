@@ -1,30 +1,30 @@
-			<div class="row top-menu">
-				<nav class="navbar navbar-default container-fluid navbar-fixed-top">
-			 		<div class="container">
-			  			<div class="col-md-6 col-md-offset-0" style="margin-top: 5px;">
-							<p class="navbar-text">
-								<!-- <span class="glyphicon glyphicon-home" aria-hidden="false"></span> -->
-								{% if request.path  != "/itemCatalog/" %} 
-									<p class="navbar-text navbar-left"><h4><a href="{{url_for('showItems')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-										<a href="/itemCatalog"><small> Show latest items </small></a></h4></p>
-								{% else %}
-									<p class="navbar-text navbar-left"><h4><strong>Item Catalog </strong><small><strong data-toggle="modal" data-target="#myModal"> <a href="#"> (about) </a></small></strong></h4></p>
-								{% endif %}
-							</p>
-						</div>
-			    		<div class="col-md-6 text-right" style="margin-top: 3px;">
-							{%if 'username' not in session %}
-								<p class="navbar-text navbar-right"><h4><a href="{{url_for('showLogin')}}"><small><strong><span class="label label-primary">Log In </span></strong></small></h4></a></p>
-							{% else %}
-								<p class="navbar-text navbar-right"><h4><span class="glyphicon glyphicon-user " aria-hidden="true"></span>
-									<small>Logged in as </small><strong> {{session.username}} </strong>
-								<a href="{{url_for('disconnect')}}"><small><strong><span class="label label-primary">Log Out </span></strong></small></h4></a></p>
-								
-							{% endif %}
-						</div
-			  		</div>
-				</nav>
+<div class="row top-menu">
+	<nav class="navbar navbar-default container-fluid navbar-fixed-top">
+ 		<div class="container">
+  			<div class="col-md-6 col-md-offset-0" style="margin-top: 5px;">
+				<p class="navbar-text">
+					<!-- <span class="glyphicon glyphicon-home" aria-hidden="false"></span> -->
+					{% if request.path  != "/itemCatalog/" %} 
+						<p class="navbar-text navbar-left"><h4><a href="{{url_for('showItems')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+							<a href="/itemCatalog"><small> Show latest items </small></a></h4></p>
+					{% else %}
+						<p class="navbar-text navbar-left"><h4><strong>Item Catalog </strong><small><strong data-toggle="modal" data-target="#myModal"> <a href="#"> (about) </a></small></strong></h4></p>
+					{% endif %}
+				</p>
 			</div>
+    		<div class="col-md-6 text-right" style="margin-top: 3px;">
+				{%if 'username' not in session %}
+					<p class="navbar-text navbar-right"><h4><a href="{{url_for('showLogin')}}"><small><strong><span class="label label-primary">Log In </span></strong></small></h4></a></p>
+				{% else %}
+					<p class="navbar-text navbar-right"><h4><span class="glyphicon glyphicon-user " aria-hidden="true"></span>
+						<small>Logged in as </small><strong> {{session.username}} </strong>
+					<a href="{{url_for('disconnect')}}"><small><strong><span class="label label-primary">Log Out </span></strong></small></h4></a></p>
+					
+				{% endif %}
+			</div
+  		</div>
+	</nav>
+</div>
 
 
 <!-- Modal -->

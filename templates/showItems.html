@@ -2,127 +2,127 @@
 {% block content %}
 {% include "header.html" %}
 
-			<div class="container-fluid">
-				<div class="row">
-					
-					{% include "flash.html" %}
+<div class="container-fluid">
+	<div class="row">
+		
+		{% include "flash.html" %}
 
-					<div class="col-md-5 col-md-offset-0"> <!-- Column I -->
-						<div class="row">
-							<div class="col-md-9 col-md-offset-3">
-							
-							<p class="text-left"><h3><small>Avaliable </small><a href = "{{url_for('showCategories')}}">Categories</a>:</h3></p>
-							{% if "username" in session %}
-								<p><h4><a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary">New Category</span></strong></small></a></h4></p>
-							{% endif %}
+		<div class="col-md-5 col-md-offset-0"> <!-- Column I -->
+			<div class="row">
+				<div class="col-md-9 col-md-offset-3">
+				
+				<p class="text-left"><h3><small>Avaliable </small><a href = "{{url_for('showCategories')}}">Categories</a>:</h3></p>
+				{% if "username" in session %}
+					<p><h4><a href="{{url_for('newCategory')}}"><small><strong><span class="label label-primary">New Category</span></strong></small></a></h4></p>
+				{% endif %}
 
-							</div>
-						</div>
-
-						{% for category in categories %}
-
-						<div class="row">
-							<div class="col-md-9 col-md-offset-3" style="background-color: #f8f8f8; border-left: 1px solid grey;">
-								
-								{% if selectedCategory[0].vehicle_type == category.vehicle_type %}
-									<p><h4 class="text-danger">{{category.vehicle_type}}</h4></p>
-								{% else %}
-									<p><h4><a href = "{{url_for('showCategoryItems', category_id = category.id)}}">
-									{{category.vehicle_type}}</a><small> ({{category.len}} items)</small></h4></p>
-								{% endif %}
-
-								{%if 1 == 2%} <!-- Just to avoid rendering the next code -->
-								{% if "username" in session %}
-									{% if session.user_id == category.user_id %}
-										<p><h4><a href = "{{url_for('editCategory', category_id = category.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
-										{% if category.empty %}
-											<a href = "{{url_for('deleteCategory', category_id = category.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
-										{% else %}
-											<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small></a></p></h4>
-										{% endif %}
-
-									{% else %}
-										<p><h4>
-											<small><strong><span class="label label-default" style="color: #ccc;">Edit</span></strong></small>
-											<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small>
-										</h4></p>
-									{% endif %}
-								{% endif %}
-								{% endif %} <!-- rendering avoided -->
-
-							</div>
-						</div>
-						
-						{% endfor %}
-
-					</div>
-
-					<div class="col-md-5 col-md-offset-1"> <!-- Column II -->
-
-						{% if itemsLen > 0 %}
-
-							<div class="row">
-								<div class="col-md-12 col-md-offset-0">
-									{% for category in selectedCategory%}
-
-									<p class="text-left"><h3><small>Items in </small>{{category.vehicle_type}}:</h3></p>
-									
-									{% if "username" in session %}
-										<p><h4><a href="{{url_for('newItem', category_id=category.id)}}"><small><strong><span class="label label-primary">New Item</span></strong></small></a>
-										
-										<!-- Endpoints buttons -->
-										<!-- JSON output -->
-										&nbsp; <a href="{{url_for('showCategoryItemsEndPoint', category_id=category.id, endPoint='JSON')}}"><small><strong><span class="label label-primary"> { JSONify } </span></strong></small></a>
-											<!-- XML output -->
-										&nbsp; <a href="{{url_for('showCategoryItemsEndPoint', category_id=category.id, endPoint='XML')}}"> <small><strong><span class="label label-primary"> < XMLify > </span></strong></small></a>
-
-									{% endif %}
-									</h4></p>
-									{% endfor %}
-								</div>
-							</div>
-							{% for category in selectedCategory%}
-							{% for item in items%}
-								<div class="row">
-									<div class="col-md-12 col-md-offset-0" style="background-color: #f8f8f8; border-left: 1px solid grey;">
-									
-									<p><h4><a href = "{{url_for('showItem', category_id=item.category_id, item_id=item.id)}}">{{item.make}} {{item.model}}</a></h4></p>
-
-									{% if "username" in session %}
-										{% if session.user_id == item.user_id %}
-											<p><h4><a href = "{{url_for('editItem', category_id = category.id, item_id=item.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
-											<a href = "{{url_for('deleteItem', category_id = category.id, item_id=item.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
-										{% else %}
-											<p><h4>
-												<small><strong><span class="label label-default" style="color: #ccc;">Edit</span></strong></small>
-												<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small>
-											</h4></p>
-										{% endif %}
-									{% endif %}
-
-									</div>
-								</div>
-							{% endfor %}
-							{% endfor %}
-							
-						{% else %}
-
-							<div class="col-md-12 col-md-offset-0" style="background-color: #dddddd; margin-top: 57px">
-								{% for category in selectedCategory%}
-								
-								<h3><small>Category</small> {{category.vehicle_type}} <small>has no items, insert a new one! ;-)</small></h3>
-								
-								{% if "username" in session %}
-									<p><h4><a href="{{url_for('newItem', category_id=category.id)}}"><small><strong><span class="label label-primary">New Item</strong></small></a></h4></p>
-								{% endif %}
-								{% endfor %}
-							</div>
-						
-						{% endif %}
-
-					</div>
 				</div>
 			</div>
+
+			{% for category in categories %}
+
+			<div class="row">
+				<div class="col-md-9 col-md-offset-3" style="background-color: #f8f8f8; border-left: 1px solid grey;">
+					
+					{% if selectedCategory[0].vehicle_type == category.vehicle_type %}
+						<p><h4 class="text-danger">{{category.vehicle_type}}</h4></p>
+					{% else %}
+						<p><h4><a href = "{{url_for('showCategoryItems', category_id = category.id)}}">
+						{{category.vehicle_type}}</a><small> ({{category.len}} items)</small></h4></p>
+					{% endif %}
+
+					{%if 1 == 2%} <!-- Just to avoid rendering the next code -->
+					{% if "username" in session %}
+						{% if session.user_id == category.user_id %}
+							<p><h4><a href = "{{url_for('editCategory', category_id = category.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
+							{% if category.empty %}
+								<a href = "{{url_for('deleteCategory', category_id = category.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
+							{% else %}
+								<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small></a></p></h4>
+							{% endif %}
+
+						{% else %}
+							<p><h4>
+								<small><strong><span class="label label-default" style="color: #ccc;">Edit</span></strong></small>
+								<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small>
+							</h4></p>
+						{% endif %}
+					{% endif %}
+					{% endif %} <!-- rendering avoided -->
+
+				</div>
+			</div>
+			
+			{% endfor %}
+
+		</div>
+
+		<div class="col-md-5 col-md-offset-1"> <!-- Column II -->
+
+			{% if itemsLen > 0 %}
+
+				<div class="row">
+					<div class="col-md-12 col-md-offset-0">
+						{% for category in selectedCategory%}
+
+						<p class="text-left"><h3><small>Items in </small>{{category.vehicle_type}}:</h3></p>
+						
+						{% if "username" in session %}
+							<p><h4><a href="{{url_for('newItem', category_id=category.id)}}"><small><strong><span class="label label-primary">New Item</span></strong></small></a>
+							
+							<!-- Endpoints buttons -->
+							<!-- JSON output -->
+							&nbsp; <a href="{{url_for('showCategoryItemsEndPoint', category_id=category.id, endPoint='JSON')}}"><small><strong><span class="label label-primary"> { JSONify } </span></strong></small></a>
+								<!-- XML output -->
+							&nbsp; <a href="{{url_for('showCategoryItemsEndPoint', category_id=category.id, endPoint='XML')}}"> <small><strong><span class="label label-primary"> < XMLify > </span></strong></small></a>
+
+						{% endif %}
+						</h4></p>
+						{% endfor %}
+					</div>
+				</div>
+				{% for category in selectedCategory%}
+				{% for item in items%}
+					<div class="row">
+						<div class="col-md-12 col-md-offset-0" style="background-color: #f8f8f8; border-left: 1px solid grey;">
+						
+						<p><h4><a href = "{{url_for('showItem', category_id=item.category_id, item_id=item.id)}}">{{item.make}} {{item.model}}</a></h4></p>
+
+						{% if "username" in session %}
+							{% if session.user_id == item.user_id %}
+								<p><h4><a href = "{{url_for('editItem', category_id = category.id, item_id=item.id)}}"><small><strong><span class="label label-primary">Edit</span></strong></small></a>
+								<a href = "{{url_for('deleteItem', category_id = category.id, item_id=item.id)}}"><small><strong><span class="label label-danger">Delete</span></strong></small></a></p></h4>
+							{% else %}
+								<p><h4>
+									<small><strong><span class="label label-default" style="color: #ccc;">Edit</span></strong></small>
+									<small><strong><span class="label label-default" style="color: #ccc;">Delete</span></strong></small>
+								</h4></p>
+							{% endif %}
+						{% endif %}
+
+						</div>
+					</div>
+				{% endfor %}
+				{% endfor %}
+				
+			{% else %}
+
+				<div class="col-md-12 col-md-offset-0" style="background-color: #dddddd; margin-top: 57px">
+					{% for category in selectedCategory%}
+					
+					<h3><small>Category</small> {{category.vehicle_type}} <small>has no items, insert a new one! ;-)</small></h3>
+					
+					{% if "username" in session %}
+						<p><h4><a href="{{url_for('newItem', category_id=category.id)}}"><small><strong><span class="label label-primary">New Item</strong></small></a></h4></p>
+					{% endif %}
+					{% endfor %}
+				</div>
+			
+			{% endif %}
+
+		</div>
+	</div>
+</div>
 
 {% include "footer.html" %}
 
