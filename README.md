@@ -50,7 +50,7 @@ To execute the app you have some options:
 
 1. Running the application by just typing **`python application`** on your system's command line.
 
-2. Open the `application.py` with IDLE and select run.
+2. Open `application.py` with IDLE and select run.
 
 
 ### Addons:
