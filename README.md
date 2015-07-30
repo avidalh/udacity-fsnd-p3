@@ -25,7 +25,7 @@ In order to reach an "Exceeds Specs" the following aspects are covered:
 
 ## ItemCatalog is Online
 
-ItemCatalog app is online at `http://udacity-fsnd-p3.herokuapp.com/`, please have a look and play with it!
+ItemCatalog app is online at [`http://udacity-fsnd-p3.herokuapp.com/`](http://udacity-fsnd-p3.herokuapp.com/), please have a look and play with it!
 
 ## Requirements
 
