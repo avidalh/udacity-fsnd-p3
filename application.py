@@ -53,8 +53,8 @@ DEBUG = True
 app = Flask(__name__)
 
 
-# engine = create_engine('postgresql:///catalog')  # to use a postgresql DB.
-engine = create_engine('sqlite:///catalog.sql')
+engine = create_engine('postgresql:///catalog')  # to use a postgresql DB.
+# engine = create_engine('sqlite:///catalog.sql')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()

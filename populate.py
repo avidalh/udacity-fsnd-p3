@@ -21,8 +21,8 @@ __date__ = "June 30, 2015"
 __version__ = "0.1 Release Candidate"
 
 
-# engine = create_engine('postgresql:///catalog')
-engine = create_engine('sqlite:///catalog.sql')
+engine = create_engine('postgresql:///catalog')
+# engine = create_engine('sqlite:///catalog.sql')
 
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance

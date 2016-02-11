@@ -124,10 +124,10 @@ class Items(Base):
 # main function
 if __name__ == '__main__':
     # for systems with postgreSQL DB:
-    # engine = create_engine('postgresql:///catalog')
+    engine = create_engine('postgresql:///catalog')
 
     # for systems with SQL lite:
-    engine = create_engine('sqlite:///catalog.sql')
+    # engine = create_engine('sqlite:///catalog.sql')
 
     # drops all table's rows
     Base.metadata.drop_all(engine)
