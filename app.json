@@ -1,0 +1,10 @@
+{
+  "name":"udacity-fsnd-p3",
+  "scripts":{},
+  "env":{
+    "PORT":{
+      "required":true
+    }
+  },
+  "addons":[]
+}

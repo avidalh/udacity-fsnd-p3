@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 from flask import Flask, render_template, request, redirect, jsonify, \
     url_for, flash, json
 from flask import session as login_session
@@ -723,4 +724,5 @@ def make_session_permanent():
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=8080)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
